@@ -1,7 +1,9 @@
 import video from "../data/video.js";
+import Main from './Main'
+
 
 function App() {
-  console.log("Here's your data:", video);
+  // console.log("Here's your data:", video);
 
   return (
     <div className="App">
@@ -13,6 +15,7 @@ function App() {
         allowFullScreen
         title="Thinking in React"
       />
+      <Main video={video}/>
     </div>
   );
 }
