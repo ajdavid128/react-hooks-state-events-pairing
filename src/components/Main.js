@@ -5,19 +5,35 @@ import Comments from './Comments'
 function Main({video}) {
 // console.log(video)
 
-const {title, views, upvotes, downvotes, createdAt} = video
-// const title = video.title
+    const {title, views, upvotes, downvotes, createdAt, comments} = video
+    // const title = video.title
 
-const [upCount, setUpvotes] = useState (upvotes)
+    const [upCount, setUpvotes] = useState (upvotes)
 
-const [downCount, setDownvotes] = useState (downvotes)
+    const [downCount, setDownvotes] = useState (downvotes)
 
-const handleUpClick = (e) => {
-    // console.log(e.target.id)
- 
-    e.target.id === "+" ? setUpvotes(upCount + 1) : setDownvotes(downCount + 1)
-    
-}
+    const handleUpClick = (e) => {
+        // console.log(e.target.id)
+        e.target.id === "+" ? setUpvotes(upCount + 1) : setDownvotes(downCount + 1)
+    }
+
+    const commentArray = comments.map( (commentObj) => <Comments key={commentObj.id} {...commentObj}/>  );
+
+    const [hideButton, setHideButton  ] = useState(false);
+
+    const handleHideButton = () => {
+        setHideButton(!hideButton);
+    };
+
+    const CommentSection = ()=> {
+        return (
+            <div>
+                <h3>{comments.length} Comments</h3>
+                {commentArray}
+            </div>
+        )
+    };
+
 
     return(
         <div>
@@ -28,8 +44,8 @@ const handleUpClick = (e) => {
                 <button key="-" onClick={handleUpClick}>{downCount}👎</button>
             </div>
             <br/>
-            <button>Hide Comments</button>
-            <Comments />
+            <button onClick={handleHideButton}>{!hideButton ? "Hide Comments" : "Show Comments"}</button>
+               {!hideButton ? <CommentSection /> : null}
         </div>
     )
 }
